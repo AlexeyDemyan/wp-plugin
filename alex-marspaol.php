@@ -8,16 +8,25 @@
     Author URI: https://github.com/AlexeyDemyan
 */
 
+class WordCountAndTimePlugin
+{
+    function __construct()
+    {
+        add_action('admin_menu', array($this, 'adminPage'));
+    }
 
+    function adminPage()
+    {
+        add_options_page('Word Count Settings', 'Word Count', 'manage_options', 'word-count-settings-page', array($this, 'myHTML'));
+    }
 
-// Function name still needs to be unique from WP Core or other plugins, unless we're using classes
-add_action('admin_menu', 'myPluginSettingsLink');
-
-function myPluginSettingsLink() {
-    add_options_page('Word Count Settings', 'Word Count', 'manage_options', 'word-count-settings-page', 'mySettingsPageHTML');
+    function myHTML()
+    { ?>
+        <div class="wrap">
+            <h1>Word Count Settings</h1>
+        </div>
+<?php
+    }
 }
 
-function mySettingsPageHTML () { ?>
-    Hello from new plugin
-<?php 
-}
+$wordCountAndTimePlugin = new WordCountAndTimePlugin();
