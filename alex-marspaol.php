@@ -8,15 +8,16 @@
     Author URI: https://github.com/AlexeyDemyan
 */
 
-// Hooking up to a content of a post
-add_filter('the_content', 'addToEndOfPost');
 
-// Important to choose names that don't conflict with other plugins or WP Core
-// Using Classes would fix this potential issue actually
-function addToEndOfPost($content)
-{
-    if (is_single() and is_main_query()) {
-        return $content . '<p>Hello from Alex</p>';
-    }
-    return $content;
-};
+
+// Function name still needs to be unique from WP Core or other plugins, unless we're using classes
+add_action('admin_menu', 'myPluginSettingsLink');
+
+function myPluginSettingsLink() {
+    add_options_page('Word Count Settings', 'Word Count', 'manage_options', 'word-count-settings-page', 'mySettingsPageHTML');
+}
+
+function mySettingsPageHTML () { ?>
+    Hello from new plugin
+<?php 
+}
