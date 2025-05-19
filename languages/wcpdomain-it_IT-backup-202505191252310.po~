@@ -1,0 +1,48 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Alex Test Plugin\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-05-19 12:38+0000\n"
+"PO-Revision-Date: 2025-05-19 12:47+0000\n"
+"Last-Translator: Alex the Awesome\n"
+"Language-Team: Italian\n"
+"Language: it_IT\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.7.2; wp-6.8.1\n"
+"X-Domain: wcpdomain"
+
+#. Author of the plugin
+msgid "Alex"
+msgstr ""
+
+#. Name of the plugin
+msgid "Alex Test Plugin"
+msgstr ""
+
+#: alex-marspaol.php:49
+msgid "characters"
+msgstr "caratteri"
+
+#. Author URI of the plugin
+msgid "https://github.com/AlexeyDemyan"
+msgstr ""
+
+#. Description of the plugin
+msgid "Testing 1-2"
+msgstr ""
+
+#: alex-marspaol.php:45 alex-marspaol.php:49
+msgid "This post has"
+msgstr "Questo post ha"
+
+#: alex-marspaol.php:121
+msgid "Word Count"
+msgstr "Conteggio delle Parole"
+
+#: alex-marspaol.php:45
+msgid "words"
+msgstr "parole"

@@ -6,6 +6,8 @@
     Version: 1.0
     Author: Alex
     Author URI: https://github.com/AlexeyDemyan
+    Text Domain: wcpdomain
+    Domain Path: /languages
 */
 
 class WordCountAndTimePlugin
@@ -15,6 +17,12 @@ class WordCountAndTimePlugin
         add_action('admin_menu', array($this, 'adminPage'));
         add_action('admin_init', array($this, 'settings'));
         add_filter('the_content', array($this, 'ifWrap'));
+        add_action('init', array($this, 'languages'));
+    }
+
+    function languages()
+    {
+        load_plugin_textdomain('wcpdomain', false, dirname(plugin_basename(__FILE__)) . '/languages');
     }
 
     function ifWrap($content)
@@ -34,11 +42,11 @@ class WordCountAndTimePlugin
         }
 
         if (get_option('wcp_wordcount', '1')) {
-            $html .= 'This post has ' . $wordCount . ' words.<br>';
+            $html .= esc_html__('This post has', 'wcpdomain') . ' ' . $wordCount . ' ' . esc_html__('words', 'wcpdomain') . '.<br>';
         }
 
         if (get_option('wcp_charcount', '1')) {
-            $html .= 'This post has ' . strlen(strip_tags($content)) . ' characters.<br>';
+            $html .= esc_html__('This post has', 'wcpdomain') . ' ' . strlen(strip_tags($content)) . ' ' . esc_html__('characters', 'wcpdomain') . '.<br>';
         }
 
         if (get_option('wcp_readtime', '1')) {
@@ -110,7 +118,7 @@ class WordCountAndTimePlugin
 
     function adminPage()
     {
-        add_options_page('Word Count Settings', 'Word Count', 'manage_options', 'word-count-settings-page', array($this, 'myHTML'));
+        add_options_page('Word Count Settings', esc_html__('Word Count', 'wcpdomain'), 'manage_options', 'word-count-settings-page', array($this, 'myHTML'));
     }
 
     function locationHTML()
