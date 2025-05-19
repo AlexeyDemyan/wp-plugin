@@ -44,21 +44,21 @@ class WordCountAndTimePlugin
             'sanitize_callback' => 'sanitize_text_field',
             'default' => '1'
         ));
-        add_settings_field('wcp_wordcount', 'Word Count', array($this, 'wordcountHTML'), 'word-count-settings-page', 'wcp_first_section');
+        add_settings_field('wcp_wordcount', 'Word Count', array($this, 'checkboxHTML'), 'word-count-settings-page', 'wcp_first_section', array('theName' => 'wcp_wordcount'));
 
-         // Character Count setting
+        // Character Count setting
         register_setting('wordcountplugin', 'wcp_charcount', array(
             'sanitize_callback' => 'sanitize_text_field',
             'default' => '1'
         ));
-        add_settings_field('wcp_charcount', 'Character Count', array($this, 'charcountHTML'), 'word-count-settings-page', 'wcp_first_section');
+        add_settings_field('wcp_charcount', 'Character Count', array($this, 'checkboxHTML'), 'word-count-settings-page', 'wcp_first_section', array('theName' => 'wcp_charcount'));
 
-         // Read Time setting
+        // Read Time setting
         register_setting('wordcountplugin', 'wcp_readtime', array(
             'sanitize_callback' => 'sanitize_text_field',
             'default' => '1'
         ));
-        add_settings_field('wcp_readtime', 'Read Time', array($this, 'readtimeHTML'), 'word-count-settings-page', 'wcp_first_section');
+        add_settings_field('wcp_readtime', 'Read Time', array($this, 'checkboxHTML'), 'word-count-settings-page', 'wcp_first_section', array('theName' => 'wcp_readtime'));
     }
 
     function adminPage()
@@ -75,31 +75,15 @@ class WordCountAndTimePlugin
         </select>
     <?php }
 
+    function checkboxHTML($args)
+    { ?>
+        <input type="checkbox" name="<?php echo $args['theName'] ?>" value="1" <?php checked(get_option($args['theName']), '1') ?>>
+    <?php }
+
     function headlineHTML()
     { ?>
         <input type="text" name="wcp_headline" value="<?php echo esc_attr(get_option('wcp_headline')) ?>">
     <?php }
-
-    function wordcountHTML()
-    {
-    ?>
-        <input type="checkbox" name="wcp_wordcount" value="1" <?php checked(get_option('wcp_wordcount'), '1') ?>>
-    <?php
-    }
-
-    function charcountHTML()
-    {
-    ?>
-        <input type="checkbox" name="wcp_charcount" value="1" <?php checked(get_option('wcp_charcount'), '1') ?>>
-    <?php
-    }
-
-    function readtimeHTML()
-    {
-    ?>
-        <input type="checkbox" name="wcp_readtime" value="1" <?php checked(get_option('wcp_readtime'), '1') ?>>
-    <?php
-    }
 
     function myHTML()
     { ?>
