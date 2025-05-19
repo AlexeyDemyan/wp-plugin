@@ -22,7 +22,7 @@ class WordCountAndTimePlugin
         register_setting('wordcountplugin', 'wcp_location', array(
             // Here we're using the standard WP sanitize function called "sanitize_text_field"
             // Otherwise we would need to define and then reference our own sanitizer function
-            'sanitize_callback' => 'sanitize_text_field',
+            'sanitize_callback' => array($this, 'sanitizeLocation'),
             'default' => '0'
         ));
 
@@ -59,6 +59,14 @@ class WordCountAndTimePlugin
             'default' => '1'
         ));
         add_settings_field('wcp_readtime', 'Read Time', array($this, 'checkboxHTML'), 'word-count-settings-page', 'wcp_first_section', array('theName' => 'wcp_readtime'));
+    }
+
+    function sanitizeLocation($input)
+    {
+        if ($input != '1' and $input != '0') {
+            add_settings_error('wcp_location', 'wcp_location_error','Display Location must be either Beginning or End');
+            return get_option('wcp_location');
+        } return $input;
     }
 
     function adminPage()
