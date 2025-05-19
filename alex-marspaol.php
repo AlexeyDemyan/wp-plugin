@@ -14,6 +14,44 @@ class WordCountAndTimePlugin
     {
         add_action('admin_menu', array($this, 'adminPage'));
         add_action('admin_init', array($this, 'settings'));
+        add_filter('the_content', array($this, 'ifWrap'));
+    }
+
+    function ifWrap($content)
+    {
+        if (is_main_query() and is_single() and (get_option('wcp_wordcount', '1') or get_option('wcp_charcount', '1') or get_option('wcp_readtime', '1'))) {
+            return $this->createHTML($content);
+        }
+        return $content;
+    }
+
+    function createHTML($content)
+    {
+        $html = '<h3>' . esc_html(get_option('wcp_headline', 'Post Statistics')) . '</h3><p>';
+
+        if (get_option('wcp_wordcount', '1') or get_option('wcp_readtime', '1')) {
+            $wordCount = str_word_count(strip_tags($content));
+        }
+
+        if (get_option('wcp_wordcount', '1')) {
+            $html .= 'This post has ' . $wordCount . ' words.<br>';
+        }
+
+        if (get_option('wcp_charcount', '1')) {
+            $html .= 'This post has ' . strlen(strip_tags($content)) . ' characters.<br>';
+        }
+
+        if (get_option('wcp_readtime', '1')) {
+            $html .= 'This post will take about ' . round($wordCount / 245) . ' minute(s) to read.<br>';
+        }
+
+        $html .= '</p>';
+
+        if (get_option('wcp_location', '0') == '0') {
+            return $html . $content;
+        } else {
+            return $content . $html;
+        }
     }
 
     function settings()
@@ -64,9 +102,10 @@ class WordCountAndTimePlugin
     function sanitizeLocation($input)
     {
         if ($input != '1' and $input != '0') {
-            add_settings_error('wcp_location', 'wcp_location_error','Display Location must be either Beginning or End');
+            add_settings_error('wcp_location', 'wcp_location_error', 'Display Location must be either Beginning or End');
             return get_option('wcp_location');
-        } return $input;
+        }
+        return $input;
     }
 
     function adminPage()
